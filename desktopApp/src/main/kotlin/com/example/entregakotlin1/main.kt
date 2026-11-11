@@ -5,12 +5,12 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 
-fun main() = application { // Arranca el ciclo de vida de la aplicación Compose Desktop
+fun main() = application {
     Window(
-        onCloseRequest = ::exitApplication, // Cierra la app al pulsar la cruz de la ventana
-        title = "Tarjeta de presentación", // Título de la ventana según el ejercicio
-        state = rememberWindowState(width = 850.dp, height = 650.dp) // Dimensiones iniciales de la ventana
+        onCloseRequest = ::exitApplication,
+        title = "Tarjeta de presentación",
+        state = rememberWindowState(width = 850.dp, height = 650.dp)
     ) {
-        App() // Llama a la interfaz principal definida en App.kt
+        App()
     }
 }

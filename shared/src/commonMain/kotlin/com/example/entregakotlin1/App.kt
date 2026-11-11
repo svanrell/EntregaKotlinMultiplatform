@@ -29,98 +29,99 @@ import org.jetbrains.compose.resources.painterResource
 import entregakotlin1.shared.generated.resources.Res
 import entregakotlin1.shared.generated.resources.playa
 
-@Composable // Función que define una interfaz de usuario declarativa en Compose
+@Composable
 fun App() {
-    MaterialTheme { // Aplica el tema y estilos base de Material 3
-        Column( // Contenedor vertical: apila las tarjetas una debajo de otra
+    MaterialTheme {
+        Column(
             modifier = Modifier
-                .fillMaxSize() // Ocupa todo el alto y ancho disponible de la ventana
-                .padding(16.dp), // Margen exterior para que las tarjetas no toquen los bordes de la ventana
-            verticalArrangement = Arrangement.spacedBy(16.dp) // Separa cada tarjeta 16 dp automáticamente
+                .fillMaxSize() // ocupa toda la ventana
+                .padding(16.dp), // margen alrededor
+            verticalArrangement = Arrangement.spacedBy(16.dp) // separacion entre tarjetas
         ) {
-            Tarjeta( // Primera tarjeta
+            Tarjeta(
                 nombre = "Elvira Ocaña Rodríguez",
                 cargo = "Desarrolladora DAM",
                 correo = "example@example.com",
                 ciudad = "Palma",
-                colorFondo = Color.White // Fondo blanco clásico
+                colorFondo = Color.White
             )
-            Tarjeta( // Segunda tarjeta: experimentamos con un fondo ligeramente diferenciado
+            Tarjeta(
                 nombre = "Ginés Ocaña Rodríguez",
                 cargo = "Desarrollador DAM",
                 correo = "example2@example.com",
                 ciudad = "Palma",
-                colorFondo = Color(0xFFF8FAFC) // Fondo grisáceo muy suave para distinguir elementos
+                colorFondo = Color(0xFFF8FAFC) // fondo un poco diferente para probar
             )
-            Tarjeta( // Tercera tarjeta
+            Tarjeta(
                 nombre = "Gustavo Ocaña Rodríguez",
                 cargo = "Desarrollador DAM",
                 correo = "example3@example.com",
                 ciudad = "Palma",
-                colorFondo = Color.White // Fondo blanco clásico
+                colorFondo = Color.White
             )
         }
     }
 }
 
+// Componente reutilizable para cada tarjeta
 @Composable
 fun Tarjeta(
-    nombre: String,                   // Texto con el nombre completo de la persona
-    cargo: String,                    // Puesto o titulación
-    correo: String,                   // Dirección de correo electrónico
-    ciudad: String,                   // Ciudad de residencia
-    colorFondo: Color = Color.White,  // Color de fondo personalizable para cada elemento
-    modifier: Modifier = Modifier     // Convención oficial: modificador opcional para el contenedor raíz
+    nombre: String,
+    cargo: String,
+    correo: String,
+    ciudad: String,
+    colorFondo: Color = Color.White,
+    modifier: Modifier = Modifier
 ) {
-    Card( // Tarjeta contenedora de Material 3 con esquinas redondeadas y sombra
-        modifier = modifier.fillMaxWidth(), // Aplica modificadores externos y expande al ancho completo
-        colors = CardDefaults.cardColors(containerColor = colorFondo), // Asigna el color de fondo personalizado
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp) // Sombra sutil de elevación
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = colorFondo),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp) // sombra suave
     ) {
-        Row( // Contenedor horizontal: foto a la izquierda y datos a la derecha
-            modifier = Modifier.padding(16.dp), // Espaciado interior dentro de la tarjeta
-            verticalAlignment = Alignment.CenterVertically, // Centra verticalmente la foto y el texto
-            horizontalArrangement = Arrangement.spacedBy(16.dp) // 16 dp de separación entre foto y textos
+        Row(
+            modifier = Modifier.padding(16.dp), // padding interior
+            verticalAlignment = Alignment.CenterVertically, // alinea verticalmente foto y texto
+            horizontalArrangement = Arrangement.spacedBy(16.dp) // espacio entre foto y textos
         ) {
-            Image( // Componente para pintar imágenes
-                painter = painterResource(Res.drawable.playa), // Carga la imagen playa.png desde resources
-                contentDescription = null, // null porque es una imagen decorativa
-                contentScale = ContentScale.Crop, // Recorta rellenando el marco sin deformar
+            Image(
+                painter = painterResource(Res.drawable.playa), // imagen de resources
+                contentDescription = null,
+                contentScale = ContentScale.Crop, // ajusta la imagen sin deformar
                 modifier = Modifier
-                    .size(80.dp) // Tamaño cuadrado de 80x80 dp
-                    .clip(CircleShape) // Recorta la imagen en forma de círculo
+                    .size(80.dp) // tamaño cuadrado
+                    .clip(CircleShape) // la corta en circulo
             )
 
-            Column( // Columna para los textos a la derecha de la foto
-                modifier = Modifier.weight(1f) // Ocupa todo el espacio horizontal restante en la fila
+            Column(
+                modifier = Modifier.weight(1f) // ocupa el ancho restante
             ) {
                 Text(
                     text = nombre,
-                    fontWeight = FontWeight.Bold, // Nombre destacado en negrita
-                    fontSize = 18.sp, // Tamaño de fuente más grande
-                    maxLines = 1, // Limita a una línea
-                    overflow = TextOverflow.Ellipsis // Pone puntos suspensivos si no cabe
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
 
                 Text(
                     text = cargo,
-                    color = Color(0xFFC05C46), // Color teja/terracota según las diapositivas
-                    maxLines = 1, // Limita a una línea
-                    overflow = TextOverflow.Ellipsis // Control de desbordamiento de texto
+                    color = Color(0xFFC05C46), // color teja de clase
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
 
-                HorizontalDivider( // Línea divisoria horizontal entre el cargo y el contacto
-                    modifier = Modifier.padding(vertical = 8.dp) // Margen de 8 dp arriba y abajo
+                HorizontalDivider(
+                    modifier = Modifier.padding(vertical = 8.dp) // separacion arriba y abajo
                 )
 
-                Row { // Fila para alinear etiqueta y valor de correo
-                    Text("Correo: ", fontWeight = FontWeight.Bold) // Etiqueta en negrita
-                    Text(correo) // Correo en formato normal
+                Row {
+                    Text("Correo: ", fontWeight = FontWeight.Bold)
+                    Text(correo)
                 }
 
-                Row { // Fila para alinear etiqueta y valor de ciudad
-                    Text("Ciudad: ", fontWeight = FontWeight.Bold) // Etiqueta en negrita
-                    Text(ciudad) // Ciudad en formato normal
+                Row {
+                    Text("Ciudad: ", fontWeight = FontWeight.Bold)
+                    Text(ciudad)
                 }
             }
         }
