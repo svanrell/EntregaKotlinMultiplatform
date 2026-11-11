@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.painterResource
 
 import entregakotlin1.shared.generated.resources.Res
-import entregakotlin1.shared.generated.resources.avatar
+import entregakotlin1.shared.generated.resources.playa
 
 @Composable // Función que define una interfaz de usuario declarativa en Compose
 fun App() {
@@ -61,10 +61,10 @@ fun App() {
 
 @Composable
 fun Tarjeta(
-    nombre: String,  // Texto con el nombre de la persona
-    cargo: String,   // Puesto o titulación
-    correo: String,  // Dirección de correo electrónico
-    ciudad: String   // Ciudad de residencia
+    nombre: String,  
+    cargo: String,   
+    correo: String,  
+    ciudad: String
 ) {
     Card( // Tarjeta de Material 3 con esquinas redondeadas y sombra
         modifier = Modifier.fillMaxWidth(), // Hace que la tarjeta ocupe todo el ancho disponible
@@ -77,7 +77,7 @@ fun Tarjeta(
             horizontalArrangement = Arrangement.spacedBy(16.dp) // 16 dp de separación entre foto y textos
         ) {
             Image( // Componente para pintar imágenes
-                painter = painterResource(Res.drawable.avatar), // Carga la imagen desde la carpeta resources
+                painter = painterResource(Res.drawable.playa), // Carga la imagen playa.png desde resources
                 contentDescription = null, // null porque es una imagen decorativa
                 contentScale = ContentScale.Crop, // Recorta rellenando el marco sin deformar
                 modifier = Modifier
