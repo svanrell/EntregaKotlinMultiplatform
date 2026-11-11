@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.painterResource
@@ -30,30 +31,33 @@ import entregakotlin1.shared.generated.resources.playa
 
 @Composable // Función que define una interfaz de usuario declarativa en Compose
 fun App() {
-    MaterialTheme { // Aplica el tema y estilos por defecto de Material 3
+    MaterialTheme { // Aplica el tema y estilos base de Material 3
         Column( // Contenedor vertical: apila las tarjetas una debajo de otra
             modifier = Modifier
                 .fillMaxSize() // Ocupa todo el alto y ancho disponible de la ventana
-                .padding(16.dp), // Margen alrededor para no pegar las tarjetas a los bordes
+                .padding(16.dp), // Margen exterior para que las tarjetas no toquen los bordes de la ventana
             verticalArrangement = Arrangement.spacedBy(16.dp) // Separa cada tarjeta 16 dp automáticamente
         ) {
             Tarjeta( // Primera tarjeta
                 nombre = "Elvira Ocaña Rodríguez",
                 cargo = "Desarrolladora DAM",
                 correo = "example@example.com",
-                ciudad = "Palma"
+                ciudad = "Palma",
+                colorFondo = Color.White // Fondo blanco clásico
             )
-            Tarjeta( // Segunda tarjeta
+            Tarjeta( // Segunda tarjeta: experimentamos con un fondo ligeramente diferenciado
                 nombre = "Ginés Ocaña Rodríguez",
                 cargo = "Desarrollador DAM",
                 correo = "example2@example.com",
-                ciudad = "Palma"
+                ciudad = "Palma",
+                colorFondo = Color(0xFFF8FAFC) // Fondo grisáceo muy suave para distinguir elementos
             )
             Tarjeta( // Tercera tarjeta
                 nombre = "Gustavo Ocaña Rodríguez",
                 cargo = "Desarrollador DAM",
                 correo = "example3@example.com",
-                ciudad = "Palma"
+                ciudad = "Palma",
+                colorFondo = Color.White // Fondo blanco clásico
             )
         }
     }
@@ -61,14 +65,16 @@ fun App() {
 
 @Composable
 fun Tarjeta(
-    nombre: String,  
-    cargo: String,   
-    correo: String,  
-    ciudad: String
+    nombre: String,                   // Texto con el nombre completo de la persona
+    cargo: String,                    // Puesto o titulación
+    correo: String,                   // Dirección de correo electrónico
+    ciudad: String,                   // Ciudad de residencia
+    colorFondo: Color = Color.White,  // Color de fondo personalizable para cada elemento
+    modifier: Modifier = Modifier     // Convención oficial: modificador opcional para el contenedor raíz
 ) {
-    Card( // Tarjeta de Material 3 con esquinas redondeadas y sombra
-        modifier = Modifier.fillMaxWidth(), // Hace que la tarjeta ocupe todo el ancho disponible
-        colors = CardDefaults.cardColors(containerColor = Color.White), // Fondo blanco como en el diseño
+    Card( // Tarjeta contenedora de Material 3 con esquinas redondeadas y sombra
+        modifier = modifier.fillMaxWidth(), // Aplica modificadores externos y expande al ancho completo
+        colors = CardDefaults.cardColors(containerColor = colorFondo), // Asigna el color de fondo personalizado
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp) // Sombra sutil de elevación
     ) {
         Row( // Contenedor horizontal: foto a la izquierda y datos a la derecha
@@ -91,12 +97,16 @@ fun Tarjeta(
                 Text(
                     text = nombre,
                     fontWeight = FontWeight.Bold, // Nombre destacado en negrita
-                    fontSize = 18.sp // Tamaño de fuente más grande
+                    fontSize = 18.sp, // Tamaño de fuente más grande
+                    maxLines = 1, // Limita a una línea
+                    overflow = TextOverflow.Ellipsis // Pone puntos suspensivos si no cabe
                 )
 
                 Text(
                     text = cargo,
-                    color = Color(0xFFC05C46) // Color teja/terracota según las diapositivas
+                    color = Color(0xFFC05C46), // Color teja/terracota según las diapositivas
+                    maxLines = 1, // Limita a una línea
+                    overflow = TextOverflow.Ellipsis // Control de desbordamiento de texto
                 )
 
                 HorizontalDivider( // Línea divisoria horizontal entre el cargo y el contacto
@@ -105,12 +115,12 @@ fun Tarjeta(
 
                 Row { // Fila para alinear etiqueta y valor de correo
                     Text("Correo: ", fontWeight = FontWeight.Bold) // Etiqueta en negrita
-                    Text(correo) // Correo en peso normal
+                    Text(correo) // Correo en formato normal
                 }
 
                 Row { // Fila para alinear etiqueta y valor de ciudad
                     Text("Ciudad: ", fontWeight = FontWeight.Bold) // Etiqueta en negrita
-                    Text(ciudad) // Ciudad en peso normal
+                    Text(ciudad) // Ciudad en formato normal
                 }
             }
         }
