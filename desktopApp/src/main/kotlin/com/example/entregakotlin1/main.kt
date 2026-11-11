@@ -5,17 +5,12 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 
-// -----------------------------------------------------------------------------------------
-// PUNTO DE ENTRADA DE LA APLICACIÓN DE ESCRITORIO
-// application {...} gestiona el ciclo de vida de la aplicación Compose Desktop.
-// Window {...} crea la ventana del sistema operativo con el título y dimensiones indicadas.
-// -----------------------------------------------------------------------------------------
-fun main() = application {
+fun main() = application { // Arranca el ciclo de vida de la aplicación Compose Desktop
     Window(
-        onCloseRequest = ::exitApplication, // Cierra la app al pulsar el botón de cerrar ventana
-        title = "Tarjeta de presentación", // Título exacto solicitado en el ejercicio
+        onCloseRequest = ::exitApplication, // Cierra la app al pulsar la cruz de la ventana
+        title = "Tarjeta de presentación", // Título de la ventana según el ejercicio
         state = rememberWindowState(width = 850.dp, height = 650.dp) // Dimensiones iniciales de la ventana
     ) {
-        App() // Llamada al composable principal de la interfaz
+        App() // Llama a la interfaz principal definida en App.kt
     }
 }

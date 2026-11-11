@@ -25,43 +25,31 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.painterResource
 
-// Importamos el acceso a la imagen 'avatar.png' generada por Compose Resources
 import entregakotlin1.shared.generated.resources.Res
 import entregakotlin1.shared.generated.resources.avatar
 
-// -----------------------------------------------------------------------------------------
-// COMPOSABLE PRINCIPAL: App
-// La anotación @Composable le indica a Kotlin que esta función define una interfaz gráfica declarativa.
-// -----------------------------------------------------------------------------------------
-@Composable
+@Composable // Función que define una interfaz de usuario declarativa en Compose
 fun App() {
-    // MaterialTheme aplica el sistema de diseño Material 3 (colores y tipografías por defecto)
-    MaterialTheme {
-        // Column apila los elementos verticalmente (uno debajo de otro).
-        // - fillMaxSize(): hace que ocupe todo el ancho y alto disponible de la ventana.
-        // - padding(16.dp): margen interior para que las tarjetas no se peguen a los bordes de la ventana.
-        // - Arrangement.spacedBy(16.dp): separa automáticamente cada tarjeta 16 dp en vertical.
-        Column(
+    MaterialTheme { // Aplica el tema y estilos por defecto de Material 3
+        Column( // Contenedor vertical: apila las tarjetas una debajo de otra
             modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .fillMaxSize() // Ocupa todo el alto y ancho disponible de la ventana
+                .padding(16.dp), // Margen alrededor para no pegar las tarjetas a los bordes
+            verticalArrangement = Arrangement.spacedBy(16.dp) // Separa cada tarjeta 16 dp automáticamente
         ) {
-            // Reutilizamos el Composable 'Tarjeta' llamándolo 3 veces con parámetros con nombre.
-            // Esto evita duplicar código y hace que la estructura sea limpia y legible.
-            Tarjeta(
+            Tarjeta( // Primera tarjeta
                 nombre = "Elvira Ocaña Rodríguez",
                 cargo = "Desarrolladora DAM",
                 correo = "example@example.com",
                 ciudad = "Palma"
             )
-            Tarjeta(
+            Tarjeta( // Segunda tarjeta
                 nombre = "Ginés Ocaña Rodríguez",
                 cargo = "Desarrollador DAM",
                 correo = "example2@example.com",
                 ciudad = "Palma"
             )
-            Tarjeta(
+            Tarjeta( // Tercera tarjeta
                 nombre = "Gustavo Ocaña Rodríguez",
                 cargo = "Desarrollador DAM",
                 correo = "example3@example.com",
@@ -71,78 +59,58 @@ fun App() {
     }
 }
 
-// -----------------------------------------------------------------------------------------
-// COMPOSABLE REUTILIZABLE: Tarjeta
-// Recibe como argumentos los datos específicos de cada persona para pintar la tarjeta.
-// -----------------------------------------------------------------------------------------
 @Composable
 fun Tarjeta(
-    nombre: String,
-    cargo: String,
-    correo: String,
-    ciudad: String
+    nombre: String,  // Texto con el nombre de la persona
+    cargo: String,   // Puesto o titulación
+    correo: String,  // Dirección de correo electrónico
+    ciudad: String   // Ciudad de residencia
 ) {
-    // Card: componente de Material 3 que crea un contenedor con bordes redondeados y sombra
-    Card(
-        modifier = Modifier.fillMaxWidth(), // La tarjeta se expande a todo el ancho
-        colors = CardDefaults.cardColors(containerColor = Color.White), // Fondo blanco limpio
+    Card( // Tarjeta de Material 3 con esquinas redondeadas y sombra
+        modifier = Modifier.fillMaxWidth(), // Hace que la tarjeta ocupe todo el ancho disponible
+        colors = CardDefaults.cardColors(containerColor = Color.White), // Fondo blanco como en el diseño
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp) // Sombra sutil de elevación
     ) {
-        // Row: coloca sus elementos hijos horizontalmente (uno al lado de otro).
-        // - verticalAlignment = CenterVertically: alinea la foto y los textos en el centro vertical.
-        // - spacedBy(16.dp): deja 16 dp de espacio entre la imagen y el bloque de texto.
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        Row( // Contenedor horizontal: foto a la izquierda y datos a la derecha
+            modifier = Modifier.padding(16.dp), // Espaciado interior dentro de la tarjeta
+            verticalAlignment = Alignment.CenterVertically, // Centra verticalmente la foto y el texto
+            horizontalArrangement = Arrangement.spacedBy(16.dp) // 16 dp de separación entre foto y textos
         ) {
-            // 1. IMAGEN DE PERFIL
-            // - painterResource: carga la imagen desde resources/drawable/avatar.png
-            // - contentScale = ContentScale.Crop: escala la imagen rellenando sin deformarse
-            // - clip(CircleShape): recorta la imagen en círculo perfecto
-            Image(
-                painter = painterResource(Res.drawable.avatar),
-                contentDescription = null, // null porque es decorativa
-                contentScale = ContentScale.Crop,
+            Image( // Componente para pintar imágenes
+                painter = painterResource(Res.drawable.avatar), // Carga la imagen desde la carpeta resources
+                contentDescription = null, // null porque es una imagen decorativa
+                contentScale = ContentScale.Crop, // Recorta rellenando el marco sin deformar
                 modifier = Modifier
-                    .size(80.dp)
-                    .clip(CircleShape)
+                    .size(80.dp) // Tamaño cuadrado de 80x80 dp
+                    .clip(CircleShape) // Recorta la imagen en forma de círculo
             )
 
-            // 2. BLOQUE DE TEXTOS
-            // - weight(1f): modificador clave en una Row; hace que esta columna consuma
-            //   todo el espacio horizontal restante a la derecha de la imagen.
-            Column(
-                modifier = Modifier.weight(1f)
+            Column( // Columna para los textos a la derecha de la foto
+                modifier = Modifier.weight(1f) // Ocupa todo el espacio horizontal restante en la fila
             ) {
-                // Nombre: destacado en negrita y tamaño mayor (18.sp)
                 Text(
                     text = nombre,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp
+                    fontWeight = FontWeight.Bold, // Nombre destacado en negrita
+                    fontSize = 18.sp // Tamaño de fuente más grande
                 )
 
-                // Cargo: texto en color teja/terracota según el diseño de clase
                 Text(
                     text = cargo,
-                    color = Color(0xFFC05C46)
+                    color = Color(0xFFC05C46) // Color teja/terracota según las diapositivas
                 )
 
-                // Línea separadora horizontal con 8 dp de margen vertical arriba y abajo
-                HorizontalDivider(
-                    modifier = Modifier.padding(vertical = 8.dp)
+                HorizontalDivider( // Línea divisoria horizontal entre el cargo y el contacto
+                    modifier = Modifier.padding(vertical = 8.dp) // Margen de 8 dp arriba y abajo
                 )
 
-                // Fila de Correo: etiqueta "Correo: " en negrita y dirección normal
-                Row {
-                    Text("Correo: ", fontWeight = FontWeight.Bold)
-                    Text(correo)
+                Row { // Fila para alinear etiqueta y valor de correo
+                    Text("Correo: ", fontWeight = FontWeight.Bold) // Etiqueta en negrita
+                    Text(correo) // Correo en peso normal
                 }
 
-                // Fila de Ciudad: etiqueta "Ciudad: " en negrita y nombre de ciudad normal
-                Row {
-                    Text("Ciudad: ", fontWeight = FontWeight.Bold)
-                    Text(ciudad)
+                Row { // Fila para alinear etiqueta y valor de ciudad
+                    Text("Ciudad: ", fontWeight = FontWeight.Bold) // Etiqueta en negrita
+                    Text(ciudad) // Ciudad en peso normal
                 }
             }
         }
